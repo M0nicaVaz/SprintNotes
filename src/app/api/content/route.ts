@@ -28,7 +28,6 @@ const posts: Post[] = [
 
 export async function GET() {
   const session = await getServerSession();
-  if (session) return NextResponse.json(posts);
 
-  return NextResponse.redirect('/api/auth/signin');
+  return NextResponse.json(posts);
 }
