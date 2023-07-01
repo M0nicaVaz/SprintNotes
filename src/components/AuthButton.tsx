@@ -38,7 +38,6 @@ export function SignInButton() {
 
 export function AuthButton() {
   const { data: session, status } = useSession();
-  console.log(session, status);
 
   if (status === 'loading') {
     return <div className="animate-pulse">...</div>;
