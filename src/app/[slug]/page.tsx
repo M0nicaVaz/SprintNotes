@@ -13,9 +13,6 @@ interface PostPageProps {
 export default async function PostPage({ params }: PostPageProps) {
   const posts: Post[] = await fetch(`${api}/content`).then((res) => res.json());
   const post = posts.find((post) => post.slug === params.slug);
-  const session = await getServerSession();
-
-  if (!session) redirect('/api/auth/signin');
 
   return (
     <div className={``}>

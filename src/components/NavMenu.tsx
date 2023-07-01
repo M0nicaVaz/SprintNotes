@@ -20,6 +20,9 @@ export function NavMenu() {
           <li className="hover:text-violet-pure transition-colors">
             <Link href={'/medtest'}>Medtest</Link>
           </li>
+          <li className="hover:text-violet-pure transition-colors">
+            <Link href={'/users'}>Usuários</Link>
+          </li>
         </AuthCheck>
 
         <li className="ml-6">
