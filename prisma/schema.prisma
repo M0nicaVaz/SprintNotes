@@ -51,6 +51,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  posts         Post[]
 }
 
 model VerificationToken {
@@ -59,4 +60,30 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+// End NextAuth Schema
+model Category {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  posts Post[]
+}
+
+model Comment {
+  id          Int    @id @default(autoincrement())
+  title       String
+  description String
+  Post        Post? @relation(fields: [postId], references: [id]) // A comment can have one post
+  postId      Int?
+}
+
+model Post {
+  id          Int        @id @default(autoincrement())
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  description String
+  author      User       @relation(fields: [authorId], references: [id])
+  authorId    String 
+  categories  Category[]
+  comments    Comment[]
 }
