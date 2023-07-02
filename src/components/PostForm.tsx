@@ -3,10 +3,19 @@
 import { api } from '@/lib/api';
 import { Icon } from 'design-system-medclub';
 import { AuthCheck } from './AuthCheck';
+import { useRef, useState, useTransition } from 'react';
+import { useRouter } from 'next/navigation';
 
 export function PostForm() {
+  const [isPending, startTransition] = useTransition();
+  const [isLoading, setIsLoading] = useState(false);
+  const isMutating = isLoading || isPending;
+  const router = useRouter();
+  const ref = useRef<HTMLTextAreaElement>(null);
+
   const createPost = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
 
     const formData = new FormData(e.currentTarget);
 
@@ -26,6 +35,10 @@ export function PostForm() {
     } catch (err) {
       console.log(err);
     }
+
+    if (ref.current) ref.current.value = '';
+    setIsLoading(false);
+    startTransition(() => router.refresh());
   };
 
   return (
@@ -39,13 +52,20 @@ export function PostForm() {
             Novo recado
           </label>
           <textarea
+            ref={ref}
             name="description"
+            required
             placeholder="Deixe aqui o seu recado..."
             className="p-6 bg-gray-400 rounded resize-none min-h-[84px] placeholder:text-gray-200"
           />
 
           <div className="flex items-center gap-4">
-            <span className="text-lg">Projeto:</span>
+            <span className="text-lg block relative">
+              Projeto:
+              <span className="text-xxs text-red-300 absolute top-1 -right-2">
+                *
+              </span>{' '}
+            </span>
             <div className="flex gap-1">
               <input
                 id="medclub"
@@ -73,12 +93,15 @@ export function PostForm() {
           </div>
         </div>
 
-        <button className="hover:brightness-110 -mt-9 group h-16 w-16 bg-violet-light200 rounded-full text-gray-500 font-semibold">
+        <button
+          disabled={isMutating}
+          className="disabled:cursor-not-allowed enabled:hover:brightness-110 -mt-9 group h-16 w-16 bg-violet-light200 rounded-full text-gray-500 font-semibold"
+        >
           <Icon
             name="send"
-            className=" mx-auto path:fill-gray-400 group-hover:w-4 transition-all"
+            className=" mx-auto path:fill-gray-400 group-enabled:group-hover:w-4 transition-all"
           />
-          <small className="hidden group-hover:block text-xs transition-all">
+          <small className="hidden group-enabled:group-hover:block text-xs transition-all">
             Enviar
           </small>
         </button>

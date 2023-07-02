@@ -1,26 +1,47 @@
 'use client';
 import { api } from '@/lib/api';
 import { Icon } from 'design-system-medclub';
+import { useRouter } from 'next/navigation';
+import { useState, useTransition } from 'react';
 
 export function RemovePost({ postId }: { postId: number }) {
+  const [isPending, startTransition] = useTransition();
+  const [isLoading, setIsLoading] = useState(false);
+  const isMutating = isLoading || isPending;
+  const router = useRouter();
+
   async function handleDelete() {
-    await fetch(`${api}/content/${postId}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    setIsLoading(true);
+
+    try {
+      await fetch(`${api}/content/${postId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    } catch (err) {
+      console.error(err);
+    }
+
+    setIsLoading(false);
+    startTransition(() => router.refresh());
   }
 
   return (
     <button
       onClick={handleDelete}
+      disabled={isMutating}
       className="self-end group transition-colors p-2"
     >
-      <Icon
-        name={'trash'}
-        className="w-4 h-4 path:fill-gray-100 group-hover:path:fill-red-200"
-      />
+      {isMutating ? (
+        '...'
+      ) : (
+        <Icon
+          name={'trash'}
+          className="w-4 h-4 path:fill-gray-100 group-hover:path:fill-red-200"
+        />
+      )}
     </button>
   );
 }

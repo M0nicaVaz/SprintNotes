@@ -18,7 +18,7 @@ export default async function Home() {
 
       <section className="flex flex-col gap-3">
         {posts.map((post) => (
-          <PostComponent {...post} />
+          <PostComponent key={post.id} {...post} />
         ))}
       </section>
     </main>

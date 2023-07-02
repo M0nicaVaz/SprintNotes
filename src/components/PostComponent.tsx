@@ -9,7 +9,7 @@ export function PostComponent(post: Post) {
   return (
     <div key={post.id} className="flex flex-col gap-1">
       <div className="bg-gray-300 rounded items-center p-6 text-gray-100 font-semibold flex gap-10 justify-between">
-        <div className="min-h-[90px] max-h-[120px] truncate flex-1 flex flex-col justify-between gap-2">
+        <div className="min-h-[90px] max-h-auto flex-1 flex flex-col justify-between gap-2">
           <p className="w-full text-white-100 font-normal">
             {post.description}
           </p>

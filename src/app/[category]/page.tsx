@@ -23,7 +23,7 @@ export default async function PostPage({ params }: Props) {
 
       <section className="flex flex-col gap-3">
         {posts.map((post) => (
-          <PostComponent {...post} />
+          <PostComponent key={post.id} {...post} />
         ))}
       </section>
     </main>
