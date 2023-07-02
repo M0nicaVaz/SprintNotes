@@ -19,7 +19,7 @@ export async function GET() {
 
 export async function POST(req: Request) {
   const body = await req.json();
-  const { description, category } = body;
+  const { description, categories } = body;
 
   const session = await getServerSession(authOptions);
   const user = await prisma.user.findUnique({
@@ -31,10 +31,10 @@ export async function POST(req: Request) {
     data: {
       description,
       categories: {
-        connectOrCreate: category.map((each: Category) => {
+        connectOrCreate: categories.map((category: Category) => {
           return {
-            where: { name: each },
-            create: { name: each },
+            where: { name: category },
+            create: { name: category },
           };
         }),
       },

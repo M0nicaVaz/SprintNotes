@@ -5,8 +5,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { authOptions } from '../../auth/[...nextauth]/route';
 
 export async function GET() {
-  const session = await getServerSession();
-
   const posts = await prisma.post.findMany({
     include: {
       author: true,

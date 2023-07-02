@@ -21,7 +21,7 @@ export function PostForm() {
 
     const body = {
       description: formData.get('description'),
-      category: formData.getAll('category'),
+      categories: formData.getAll('categories'),
     };
 
     try {
@@ -70,14 +70,14 @@ export function PostForm() {
               <input
                 id="medclub"
                 type="checkbox"
-                name="category"
+                name="categories"
                 value="medclub"
               />
               <label htmlFor="medclub">Medclub</label>
             </div>
 
             <div className="flex gap-1">
-              <input id="emr" type="checkbox" name="category" value="emr" />
+              <input id="emr" type="checkbox" name="categories" value="emr" />
               <label htmlFor="emr">EMR</label>
             </div>
 
@@ -85,7 +85,7 @@ export function PostForm() {
               <input
                 id="medtest"
                 type="checkbox"
-                name="category"
+                name="categories"
                 value="medtest"
               />
               <label htmlFor="medtest">Medtest</label>
