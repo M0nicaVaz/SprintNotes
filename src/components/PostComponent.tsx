@@ -14,9 +14,11 @@ export function PostComponent(post: Post) {
             {post.description}
           </p>
 
-          {post.categories?.map((category) => (
-            <Category name={category.name} key={category.id} />
-          ))}
+          <div className="flex gap-2">
+            {post.categories?.map((category) => (
+              <Category name={category.name} key={category.id} />
+            ))}
+          </div>
         </div>
 
         <UserCard {...post.author} />

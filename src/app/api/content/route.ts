@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
 import { authOptions } from '../auth/[...nextauth]/route';
+import { Category } from '@/@types/Post';
 
 export async function GET() {
   const session = await getServerSession();
@@ -30,12 +31,12 @@ export async function POST(req: Request) {
     data: {
       description,
       categories: {
-        connectOrCreate: [
-          {
-            where: { name: category },
-            create: { name: category },
-          },
-        ],
+        connectOrCreate: category.map((each: Category) => {
+          return {
+            where: { name: each },
+            create: { name: each },
+          };
+        }),
       },
       author: { connect: { id: currentUserId } },
     },

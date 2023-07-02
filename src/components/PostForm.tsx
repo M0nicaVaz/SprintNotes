@@ -21,7 +21,7 @@ export function PostForm() {
 
     const body = {
       description: formData.get('description'),
-      category: formData.get('category'),
+      category: formData.getAll('category'),
     };
 
     try {
