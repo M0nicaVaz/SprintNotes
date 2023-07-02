@@ -1,9 +1,9 @@
 import { User } from '@/@types/User';
-import { PostComponent } from '@/components';
+import { CommentComponent, PostComponent } from '@/components';
 import { api } from '@/lib/api';
 import { prisma } from '@/lib/prisma';
 import { Metadata } from 'next';
-import Image from 'next/image';
+import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 
@@ -18,19 +18,35 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: `Recados de ${user?.name}` };
 }
 
-export default async function UserProfile({ params }: Props) {
+export default async function UserPage({ params }: Props) {
   const fetchUser = await fetch(`${api}/users/${params.id}`);
   const user: User = await fetchUser.json();
 
   return (
     <main className="flex gap-8 flex-col max-w-[1580px] mx-auto py-10 px-6 lg:px-16">
-      <h1 className="text-2xl"> Recados de {user.name}</h1>
+      <div className="grid grid-cols-2 gap-10 divide-x divide-opacity-50 divide-violet-light100 ">
+        <div className="flex flex-col gap-6">
+          <span className="text-xl "> Recados de {user.name}</span>
 
-      <section className="flex flex-col gap-3">
-        {user.posts?.map((post) => (
-          <PostComponent key={post.id} {...post} />
-        ))}
-      </section>
+          <section className="flex flex-col gap-3">
+            {user.posts?.map((post) => (
+              <PostComponent key={post.id} {...post} />
+            ))}
+          </section>
+        </div>
+
+        <div className="flex flex-col gap-6 ">
+          <span className="text-xl ml-10"> Comentários de {user.name}</span>
+
+          <section className="flex flex-col gap-3 ml-10">
+            {user.comments?.map((comment) => (
+              <Link href={`/post/${comment.postId}`}>
+                <CommentComponent key={comment.id} {...comment} />
+              </Link>
+            ))}
+          </section>
+        </div>
+      </div>
     </main>
   );
 }

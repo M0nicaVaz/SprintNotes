@@ -7,3 +7,6 @@ export { PostForm } from './PostForm';
 export { RemovePost } from './RemovePost';
 export { Category } from './Category';
 export { PostComponent } from './PostComponent';
+export { CommentForm } from './CommentForm';
+export { CommentComponent } from './CommentComponent';
+export { RemoveComment } from './RemoveComment';

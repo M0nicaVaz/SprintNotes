@@ -10,10 +10,22 @@ export async function GET(
       id: context.params.id,
     },
     include: {
+      comments: {
+        include: {
+          Post: true,
+          author: true,
+        },
+      },
       posts: {
         include: {
           author: true,
           categories: true,
+          _count: {
+            select: { comments: true },
+          },
+        },
+        orderBy: {
+          createdAt: 'desc',
         },
       },
     },

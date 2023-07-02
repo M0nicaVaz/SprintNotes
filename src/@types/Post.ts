@@ -5,6 +5,15 @@ export type Category = {
   name: 'emr' | 'medclub' | 'medtest';
 };
 
+export type Comment = {
+  id: number;
+  description: string;
+  postId: number;
+  authorId: string;
+  createdAt: string;
+  author: User;
+};
+
 export type Post = {
   id: number;
   createdAt: string;
@@ -13,4 +22,8 @@ export type Post = {
   authorId: string;
   author: User;
   categories: Category[];
+  comments?: Comment[];
+  _count?: {
+    [key: string]: number;
+  };
 };

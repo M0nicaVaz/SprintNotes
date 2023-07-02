@@ -4,14 +4,15 @@ import { api } from '@/lib/api';
 import { Icon } from 'design-system-medclub';
 import { AuthCheck } from './AuthCheck';
 import { useRef, useState, useTransition } from 'react';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
-export function PostForm() {
+export function CommentForm() {
   const [isPending, startTransition] = useTransition();
   const [isLoading, setIsLoading] = useState(false);
   const isMutating = isLoading || isPending;
   const router = useRouter();
   const ref = useRef<HTMLTextAreaElement>(null);
+  const { id } = useParams();
 
   const createPost = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,13 +22,11 @@ export function PostForm() {
 
     const body = {
       description: formData.get('description'),
-      categories: formData.getAll('categories'),
+      postId: id,
     };
 
-    if (body.categories.length === 0) return setIsLoading(false);
-
     try {
-      await fetch(`${api}/content`, {
+      await fetch(`${api}/comment`, {
         method: 'POST',
         body: JSON.stringify(body),
         headers: {
@@ -57,47 +56,14 @@ export function PostForm() {
             ref={ref}
             name="description"
             required
-            placeholder="Deixe aqui o seu recado..."
+            placeholder="Deixe aqui seu comentário..."
             className="p-6 bg-gray-400 rounded resize-none min-h-[84px] placeholder:text-gray-200"
           />
-
-          <div className="flex items-center gap-4">
-            <span className="text-lg block relative">
-              Projeto:
-              <span className="text-xxs text-red-300 absolute top-1 -right-2">
-                *
-              </span>{' '}
-            </span>
-            <div className="flex gap-1">
-              <input
-                id="medclub"
-                type="checkbox"
-                name="categories"
-                value="medclub"
-              />
-              <label htmlFor="medclub">Medclub</label>
-            </div>
-
-            <div className="flex gap-1">
-              <input id="emr" type="checkbox" name="categories" value="emr" />
-              <label htmlFor="emr">EMR</label>
-            </div>
-
-            <div className="flex gap-1 group">
-              <input
-                id="medtest"
-                type="checkbox"
-                name="categories"
-                value="medtest"
-              />
-              <label htmlFor="medtest">Medtest</label>
-            </div>
-          </div>
         </div>
 
         <button
           disabled={isMutating}
-          className="disabled:cursor-not-allowed enabled:hover:brightness-110 -mt-9 group h-16 w-16 bg-violet-light200 rounded-full text-gray-500 font-semibold"
+          className="disabled:cursor-not-allowed enabled:hover:brightness-110 group h-16 w-16 bg-violet-light200 rounded-full text-gray-500 font-semibold"
         >
           <Icon
             name="send"
@@ -108,7 +74,6 @@ export function PostForm() {
           </small>
         </button>
       </form>
-      <hr className="border-gray-400 border-b-0" />
     </AuthCheck>
   );
 }

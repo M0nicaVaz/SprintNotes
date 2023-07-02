@@ -1,6 +1,8 @@
+import { User } from '@/@types/User';
 import { UserCard } from '@/components';
 import { api } from '@/lib/api';
-import { User } from 'next-auth';
+
+export const dynamic = 'force-dynamic';
 
 export default async function Users() {
   const users: User[] = await fetch(`${api}/users`).then((res) => res.json());
@@ -11,7 +13,19 @@ export default async function Users() {
 
       <section className="flex flex-wrap gap-6">
         {users.map((user) => {
-          return <UserCard key={user.id} {...user} />;
+          return (
+            <div className="flex flex-col gap-1 group w-24 h-[120px]">
+              <UserCard key={user.id} {...user} />
+              <div className=" flex-col items-center hidden group-hover:flex">
+                <span className="text-xs">
+                  {user['_count']?.posts} recados(s)
+                </span>
+                <span className="text-xs">
+                  {user['_count']?.comments} comentário(s)
+                </span>
+              </div>
+            </div>
+          );
         })}
       </section>
     </main>

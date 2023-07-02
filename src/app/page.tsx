@@ -12,8 +12,6 @@ export default async function Home() {
     <main className="flex gap-8 flex-col max-w-[1580px] mx-auto py-10 px-6 lg:px-16">
       <PostForm />
 
-      <hr className="border-gray-400 border-b-0" />
-
       <h1 className="text-2xl">Mural de recados</h1>
 
       <section className="flex flex-col gap-3">

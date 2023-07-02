@@ -11,6 +11,9 @@ export async function GET() {
     include: {
       author: true,
       categories: true,
+      _count: {
+        select: { comments: true },
+      },
     },
   });
 
