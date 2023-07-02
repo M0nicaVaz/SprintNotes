@@ -7,17 +7,14 @@ export function UserCard({ id, name, image }: User) {
     <Link href={`/users/${id}`}>
       <div className="group flex flex-col gap-1 items-center justify-center">
         <Image
-          width={74}
-          height={74}
+          width={60}
+          height={60}
           src={image ?? '/default_pfp.png'}
           alt={`Foto de ${name}`}
-          className="rounded-full group-hover:ring-2 group-hover:ring-violet-light100"
+          className="rounded-full group-hover:ring-2 group-hover:ring-violet-pure"
         />
-        <div className="">
-          <span className="text-sm group-hover:text-violet-light100">
-            {name}
-          </span>
-        </div>
+
+        <span className="text-sm group-hover:text-violet-pure">{name}</span>
       </div>
     </Link>
   );

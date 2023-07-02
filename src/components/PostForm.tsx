@@ -44,7 +44,7 @@ export function PostForm() {
             className=" p-6 bg-gray-400 rounded resize-none min-h-[84px] placeholder:text-gray-200"
           />
 
-          <div className="flex  gap-4">
+          <div className="flex items-center gap-4">
             <span className="text-lg">Projeto:</span>
             <div className="flex gap-1">
               <input
