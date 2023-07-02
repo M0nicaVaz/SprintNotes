@@ -1,16 +1,8 @@
-export type Author = {
-  id: string;
-  name: string;
-  bio: null | string;
-  age: null | number;
-  email: string;
-  emailVerified: null | boolean;
-  image: string;
-};
+import { User } from './User';
 
 export type Category = {
   id: number;
-  name: string;
+  name: 'emr' | 'medclub' | 'medtest';
 };
 
 export type Post = {
@@ -19,6 +11,6 @@ export type Post = {
   updatedAt: string;
   description: string;
   authorId: string;
-  author: Author;
+  author: User;
   categories: Category[];
 };

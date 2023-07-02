@@ -1,23 +1,31 @@
 import { Post } from '@/@types/Post';
 import { api } from '../../lib/api';
-import { getServerSession } from 'next-auth';
-import { redirect } from 'next/navigation';
+import { Metadata } from 'next';
+import { PostComponent } from '@/components';
 
-export const dynamic = 'force-dynamic'; //always fetch latest data
-// export const revalidate = 1200;
+export const dynamic = 'force-dynamic';
 
-interface PostPageProps {
+interface Props {
   params: { category: string };
 }
 
-export default async function PostPage({ params }: PostPageProps) {
-  const posts: Post[] = await fetch(`${api}/content`).then((res) => res.json());
-  const post = posts.find((post) => post.category === params.category);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  return { title: `Mural de recados - ${params.category}` };
+}
+
+export default async function PostPage({ params }: Props) {
+  const fetchPosts = await fetch(`${api}/category/${params.category}`);
+  const posts: Post[] = await fetchPosts.json();
 
   return (
-    <div className={``}>
-      <h1>{post?.category} </h1>
-      <p>{post?.description}</p>
-    </div>
+    <main className="flex gap-8 flex-col max-w-[1580px] mx-auto py-10 px-6 lg:px-16">
+      <h1 className="text-2xl">Mural de recados - {params.category} </h1>
+
+      <section className="flex flex-col gap-3">
+        {posts.map((post) => (
+          <PostComponent {...post} />
+        ))}
+      </section>
+    </main>
   );
 }
