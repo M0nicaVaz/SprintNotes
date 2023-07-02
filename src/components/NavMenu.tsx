@@ -11,16 +11,16 @@ export function NavMenu() {
 
       <ul className="flex gap-2 items-center">
         <AuthCheck>
-          <li className="hover:text-violet-pure transition-colors">
+          <li className="hover:text-violet-pure transition-colors text-sm">
             <Link href={'/medclub'}>Medclub</Link>
           </li>
-          <li className="hover:text-violet-pure transition-colors">
+          <li className="hover:text-violet-pure transition-colors text-sm">
             <Link href={'/emr'}>EMR</Link>
           </li>
-          <li className="hover:text-violet-pure transition-colors">
+          <li className="hover:text-violet-pure transition-colors text-sm">
             <Link href={'/medtest'}>Medtest</Link>
           </li>
-          <li className="hover:text-violet-pure transition-colors">
+          <li className="hover:text-violet-pure transition-colors text-sm">
             <Link href={'/users'}>Usuários</Link>
           </li>
         </AuthCheck>

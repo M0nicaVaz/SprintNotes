@@ -46,15 +46,14 @@ export function AuthButton() {
   if (status === 'authenticated') {
     return (
       <div className="flex items-center gap-2">
-        <Link href={`/dashboard`}>
-          <Image
-            className="rounded-full"
-            src={session.user?.image ?? '/default_pqp.png'}
-            width={32}
-            height={32}
-            alt="Your Name"
-          />
-        </Link>
+        <Image
+          className="rounded-full"
+          src={session.user?.image ?? '/default_pqp.png'}
+          width={32}
+          height={32}
+          alt="Your Name"
+        />
+
         <SignOutButton />
       </div>
     );

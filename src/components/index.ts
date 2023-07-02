@@ -5,3 +5,5 @@ export { AuthButton } from './AuthButton';
 export { UserCard } from './UserCard';
 export { PostForm } from './PostForm';
 export { RemovePost } from './RemovePost';
+export { Category } from './Category';
+export { PostComponent } from './PostComponent';

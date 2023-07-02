@@ -9,7 +9,7 @@ export default async function Users() {
     <main className="flex gap-8 flex-col max-w-[1580px] mx-auto py-10 px-6 lg:px-16">
       <h1 className="text-2xl">Lista de usuários</h1>
 
-      <section className="flex flex-wrap">
+      <section className="flex flex-wrap gap-6">
         {users.map((user) => {
           return <UserCard key={user.id} {...user} />;
         })}

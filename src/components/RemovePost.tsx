@@ -19,7 +19,7 @@ export function RemovePost({ postId }: { postId: number }) {
     >
       <Icon
         name={'trash'}
-        className="w-5 h-5 path:fill-gray-100 group-hover:path:fill-red-200"
+        className="w-4 h-4 path:fill-gray-100 group-hover:path:fill-red-200"
       />
     </button>
   );

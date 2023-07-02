@@ -32,7 +32,7 @@ export function PostForm() {
     <AuthCheck>
       <form
         onSubmit={createPost}
-        className="flex mx-auto w-full max-w-2xl justify-center gap-4 items-center"
+        className="flex mx-auto w-full max-w-4xl justify-center gap-4 items-center"
       >
         <div className="flex flex-col gap-2 flex-1">
           <label htmlFor="description" className="sr-only">
@@ -41,7 +41,7 @@ export function PostForm() {
           <textarea
             name="description"
             placeholder="Deixe aqui o seu recado..."
-            className=" p-6 bg-gray-400 rounded resize-none min-h-[84px] placeholder:text-gray-200"
+            className="p-6 bg-gray-400 rounded resize-none min-h-[84px] placeholder:text-gray-200"
           />
 
           <div className="flex items-center gap-4">

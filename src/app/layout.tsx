@@ -5,7 +5,7 @@ import { AuthProvider, NavMenu } from '@/components';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'Quadro de',
+  title: 'Mural de recados - Home',
 };
 
 export default function RootLayout({
