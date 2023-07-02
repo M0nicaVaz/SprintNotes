@@ -1,6 +1,11 @@
+import { User } from '@/@types/User';
+import { PostComponent } from '@/components';
+import { api } from '@/lib/api';
 import { prisma } from '@/lib/prisma';
 import { Metadata } from 'next';
 import Image from 'next/image';
+
+export const dynamic = 'force-dynamic';
 
 interface Props {
   params: {
@@ -10,25 +15,23 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const user = await prisma.user.findUnique({ where: { id: params.id } });
-  return { title: `Perfil de ${user?.name}` };
+  return { title: `Recados de ${user?.name}` };
 }
 
 export default async function UserProfile({ params }: Props) {
-  const user = await prisma.user.findUnique({ where: { id: params.id } });
+  const fetchUser = await fetch(`${api}/users/${params.id}`);
+  const user: User = await fetchUser.json();
   const { name, image, id } = user ?? {};
 
   return (
     <main className="flex gap-8 flex-col max-w-[1580px] mx-auto py-10 px-6 lg:px-16">
-      <div className="flex flex-wrap items-center gap-4">
-        <Image
-          width={74}
-          height={74}
-          src={image ?? '/default_pfp.png'}
-          alt={`Foto de ${name}`}
-          className="rounded-full group-hover:ring-2 group-hover:ring-violet-light100"
-        />
-        <h1 className="text-2xl"> Perfil de {name}</h1>
-      </div>
+      <h1 className="text-2xl"> Recados de {name}</h1>
+
+      <section className="flex flex-col gap-3">
+        {user.posts?.map((post) => (
+          <PostComponent key={post.id} {...post} />
+        ))}
+      </section>
     </main>
   );
 }
