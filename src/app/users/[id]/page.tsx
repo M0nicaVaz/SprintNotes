@@ -24,7 +24,7 @@ export default async function UserPage({ params }: Props) {
 
   return (
     <main className="flex gap-8 flex-col max-w-[1580px] mx-auto py-10 px-6 lg:px-16">
-      <div className="grid grid-cols-2 gap-10 divide-x divide-opacity-50 divide-violet-light100 ">
+      <div className="flex flex-col lg:grid lg:grid-cols-2 gap-10 lg:divide-x divide-opacity-50 divide-violet-light100 ">
         <div className="flex flex-col gap-6">
           <span className="text-xl "> Recados de {user.name}</span>
 
@@ -38,7 +38,7 @@ export default async function UserPage({ params }: Props) {
         <div className="flex flex-col gap-6 ">
           <span className="text-xl ml-10"> Comentários de {user.name}</span>
 
-          <section className="flex flex-col gap-3 ml-10">
+          <section className="flex flex-col gap-3 lg:ml-10">
             {user.comments?.map((comment) => (
               <Link href={`/post/${comment.postId}`}>
                 <CommentComponent key={comment.id} {...comment} />

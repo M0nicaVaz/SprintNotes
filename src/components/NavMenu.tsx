@@ -1,6 +1,30 @@
 import Link from 'next/link';
 import { AuthButton } from './AuthButton';
 import { AuthCheck } from './AuthCheck';
+import { DropdownMenu } from './DropdownMenu';
+
+const Links = [
+  {
+    title: 'Medclub',
+    to: '/medclub',
+    icon: <></>,
+  },
+  {
+    title: 'Emr',
+    to: '/emr',
+    icon: <></>,
+  },
+  {
+    title: 'Medtest',
+    to: '/medtest',
+    icon: <></>,
+  },
+  {
+    title: 'Usuários',
+    to: '/users',
+    icon: <></>,
+  },
+];
 
 export function NavMenu() {
   return (
@@ -11,18 +35,9 @@ export function NavMenu() {
 
       <ul className="flex gap-2 items-center">
         <AuthCheck>
-          <li className="hover:text-violet-pure transition-colors text-sm">
-            <Link href={'/medclub'}>Medclub</Link>
-          </li>
-          <li className="hover:text-violet-pure transition-colors text-sm">
-            <Link href={'/emr'}>EMR</Link>
-          </li>
-          <li className="hover:text-violet-pure transition-colors text-sm">
-            <Link href={'/medtest'}>Medtest</Link>
-          </li>
-          <li className="hover:text-violet-pure transition-colors text-sm">
-            <Link href={'/users'}>Usuários</Link>
-          </li>
+          <DropdownMenu hasExitLink={false} dropdownLinks={Links}>
+            Filtros
+          </DropdownMenu>
         </AuthCheck>
 
         <li className="ml-6">

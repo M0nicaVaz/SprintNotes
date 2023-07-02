@@ -62,7 +62,7 @@ export function PostForm() {
           />
 
           <div className="flex items-center gap-4">
-            <span className="text-lg block relative">
+            <span className="text-lg -z-10 block relative">
               Projeto:
               <span className="text-xxs text-red-300 absolute top-1 -right-2">
                 *

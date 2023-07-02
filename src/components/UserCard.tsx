@@ -11,7 +11,7 @@ export function UserCard({ id, name, image }: User) {
           height={60}
           src={image ?? '/default_pfp.png'}
           alt={`Foto de ${name}`}
-          className="rounded-full group-hover:ring-2 group-hover:ring-violet-light200"
+          className="w-10 h-10 lg:h-[60px] lg:w-[60px] rounded-full group-hover:ring-2 group-hover:ring-violet-light200"
         />
 
         <span className="text-sm group-hover:text-violet-light200">{name}</span>
