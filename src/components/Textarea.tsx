@@ -10,11 +10,8 @@ export interface TextareaProps {
 }
 
 export function Textarea({ comment }: TextareaProps) {
-  if (!comment) return null;
-
   const [isReadonly, setIsReadonly] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-
   const ref = useRef<HTMLTextAreaElement>(null);
 
   function handleEdit() {
@@ -44,6 +41,8 @@ export function Textarea({ comment }: TextareaProps) {
     setIsReadonly((prev) => !prev);
     setIsLoading(false);
   }
+
+  if (!comment) return null;
 
   return (
     <div className="bg-gray-400 rounded items-center p-6 text-gray-100 font-semibold flex gap-10 justify-between">
