@@ -5,31 +5,35 @@ export async function GET(
   req: NextRequest,
   context: { params: { id: string } }
 ) {
-  const user = await prisma.user.findFirst({
-    where: {
-      id: context.params.id,
-    },
-    include: {
-      comments: {
-        include: {
-          Post: true,
-          author: true,
-        },
+  try {
+    const user = await prisma.user.findFirst({
+      where: {
+        id: context.params.id,
       },
-      posts: {
-        include: {
-          author: true,
-          categories: true,
-          _count: {
-            select: { comments: true },
+      include: {
+        comments: {
+          include: {
+            Post: true,
+            author: true,
           },
         },
-        orderBy: {
-          createdAt: 'desc',
+        posts: {
+          include: {
+            author: true,
+            categories: true,
+            _count: {
+              select: { comments: true },
+            },
+          },
+          orderBy: {
+            createdAt: 'desc',
+          },
         },
       },
-    },
-  });
+    });
 
-  return NextResponse.json(user);
+    return NextResponse.json(user);
+  } catch (error) {
+    console.log(error);
+  }
 }

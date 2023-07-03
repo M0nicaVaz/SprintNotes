@@ -8,35 +8,43 @@ export async function GET(
   req: NextRequest,
   context: { params: { id: string } }
 ) {
-  const { id } = context.params;
+  try {
+    const { id } = context.params;
 
-  const post = await prisma.post.findFirst({
-    where: { id: Number(id) },
-    include: {
-      author: true,
-      categories: true,
-      comments: {
-        include: {
-          author: true,
+    const post = await prisma.post.findFirst({
+      where: { id: Number(id) },
+      include: {
+        author: true,
+        categories: true,
+        comments: {
+          include: {
+            author: true,
+          },
+        },
+        _count: {
+          select: { comments: true },
         },
       },
-      _count: {
-        select: { comments: true },
-      },
-    },
-  });
+    });
 
-  return NextResponse.json(post);
+    return NextResponse.json(post);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export async function DELETE(
   req: NextRequest,
   context: { params: { id: string } }
 ) {
-  const { id } = context.params;
+  try {
+    const { id } = context.params;
 
-  await prisma.post.delete({
-    where: { id: Number(id) },
-  });
-  return NextResponse.json({ id });
+    await prisma.post.delete({
+      where: { id: Number(id) },
+    });
+    return NextResponse.json({ id });
+  } catch (error) {
+    console.log(error);
+  }
 }

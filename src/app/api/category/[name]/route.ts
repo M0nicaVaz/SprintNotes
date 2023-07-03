@@ -5,24 +5,28 @@ export async function GET(
   req: NextRequest,
   context: { params: { name: string } }
 ) {
-  const { name } = context.params;
+  try {
+    const { name } = context.params;
 
-  const posts = await prisma.post.findMany({
-    where: {
-      categories: {
-        some: {
-          name,
+    const posts = await prisma.post.findMany({
+      where: {
+        categories: {
+          some: {
+            name,
+          },
         },
       },
-    },
-    include: {
-      author: true,
-      categories: true,
-      _count: {
-        select: { comments: true },
+      include: {
+        author: true,
+        categories: true,
+        _count: {
+          select: { comments: true },
+        },
       },
-    },
-  });
+    });
 
-  return NextResponse.json(posts);
+    return NextResponse.json(posts);
+  } catch (error) {
+    console.log(error);
+  }
 }

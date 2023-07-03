@@ -1,10 +1,6 @@
 import { Post } from '@/@types/Post';
-import { User } from '@/@types/User';
 import { CommentForm, PostComponent, CommentComponent } from '@/components';
 import { api } from '@/lib/api';
-import { prisma } from '@/lib/prisma';
-
-import { Metadata } from 'next';
 
 export const dynamic = 'force-dynamic';
 

@@ -8,10 +8,14 @@ export async function DELETE(
   req: NextRequest,
   context: { params: { id: string } }
 ) {
-  const { id } = context.params;
+  try {
+    const { id } = context.params;
 
-  await prisma.comment.delete({
-    where: { id: Number(id) },
-  });
-  return NextResponse.json({ id });
+    await prisma.comment.delete({
+      where: { id: Number(id) },
+    });
+    return NextResponse.json({ id });
+  } catch (error) {
+    console.log(error);
+  }
 }
