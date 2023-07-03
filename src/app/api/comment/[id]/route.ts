@@ -1,8 +1,5 @@
 import { prisma } from '@/lib/prisma';
-import { getServerSession } from 'next-auth';
-import { redirect } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
-import { authOptions } from '../../auth/[...nextauth]/route';
 
 export async function DELETE(
   req: NextRequest,
@@ -14,6 +11,30 @@ export async function DELETE(
     await prisma.comment.delete({
       where: { id: Number(id) },
     });
+    return NextResponse.json({ id });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function PUT(
+  req: NextRequest,
+  context: { params: { id: string } }
+) {
+  try {
+    const { id } = context.params;
+    const body = await req.json();
+    const { description } = body;
+
+    await prisma.comment.update({
+      where: {
+        id: Number(id),
+      },
+      data: {
+        description,
+      },
+    });
+
     return NextResponse.json({ id });
   } catch (error) {
     console.log(error);
