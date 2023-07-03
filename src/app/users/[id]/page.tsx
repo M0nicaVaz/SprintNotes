@@ -40,7 +40,7 @@ export default async function UserPage({ params }: Props) {
 
           <section className="flex flex-col gap-3 lg:ml-10">
             {user.comments?.map((comment) => (
-              <Link href={`/post/${comment.postId}`}>
+              <Link key={comment.id} href={`/post/${comment.postId}`}>
                 <CommentComponent key={comment.id} {...comment} />
               </Link>
             ))}
