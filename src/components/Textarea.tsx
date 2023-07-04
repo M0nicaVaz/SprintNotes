@@ -4,6 +4,7 @@ import { Comment } from '@/@types/Post';
 import { UserCard } from './UserCard';
 import { useRef, useState } from 'react';
 import { api } from '@/lib/api';
+import { getSession, useSession } from 'next-auth/react';
 
 export interface TextareaProps {
   comment?: Comment;
@@ -13,6 +14,8 @@ export function Textarea({ comment }: TextareaProps) {
   const [isReadonly, setIsReadonly] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const ref = useRef<HTMLTextAreaElement>(null);
+  const { data: session } = useSession();
+  const isAuthorAndCurrentUser = comment?.author.email === session?.user?.email;
 
   function handleEdit() {
     setIsReadonly((prev) => !prev);
@@ -54,13 +57,16 @@ export function Textarea({ comment }: TextareaProps) {
           className="w-full bg-gray-400 read-only:pointer-events-none resize-none text-white-100 font-normal"
         />
       </div>
-      <button
-        disabled={isLoading}
-        onClick={() => (isReadonly ? handleEdit() : handleSave())}
-        className="flex items-center absolute top-4 left-6 text-xxs transition-colors hover:text-violet-light200"
-      >
-        {isReadonly ? 'Editar' : 'Salvar'}
-      </button>
+
+      {isAuthorAndCurrentUser && (
+        <button
+          disabled={isLoading}
+          onClick={() => (isReadonly ? handleEdit() : handleSave())}
+          className="flex items-center absolute top-4 left-6 text-xxs transition-colors hover:text-violet-light200"
+        >
+          {isReadonly ? 'Editar' : 'Salvar'}
+        </button>
+      )}
 
       <UserCard {...comment.author} />
     </div>

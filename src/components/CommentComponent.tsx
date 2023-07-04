@@ -1,4 +1,3 @@
-import { UserCard } from './UserCard';
 import { formatDate } from '@/utils';
 import { Comment } from '@/@types/Post';
 import { RemoveComment } from './RemoveComment';
@@ -16,7 +15,7 @@ export function CommentComponent(comment: Comment) {
         </span>
 
         <AuthCheck>
-          <RemoveComment commentId={comment.id} />
+          <RemoveComment {...comment} />
         </AuthCheck>
       </div>
     </div>
