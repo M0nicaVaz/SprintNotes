@@ -35,7 +35,7 @@ export function PostComponent(post: Post) {
         <span className="text-xxs ">{formatDate(post.createdAt, 'short')}</span>
 
         <AuthCheck>
-          <RemovePost postId={post.id} />
+          <RemovePost {...post} />
         </AuthCheck>
       </div>
     </div>
