@@ -10,8 +10,17 @@ export function CommentComponent(comment: Comment) {
       <Textarea comment={comment} />
 
       <div className="flex self-end items-center">
+        {comment.updatedAt && (
+          <>
+            <span className="text-xxs ">
+              Editado em {formatDate(comment.updatedAt, 'short')}
+            </span>
+
+            <span className="font-extralight opacity-20">|</span>
+          </>
+        )}
         <span className="text-xxs ">
-          {formatDate(comment.createdAt, 'short')}
+          Postado em {formatDate(comment.createdAt, 'short')}
         </span>
 
         <AuthCheck>
