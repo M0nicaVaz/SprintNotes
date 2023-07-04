@@ -2,9 +2,10 @@
 
 import { Comment } from '@/@types/Post';
 import { UserCard } from './UserCard';
-import { useRef, useState } from 'react';
+import { useRef, useState, useTransition } from 'react';
 import { api } from '@/lib/api';
-import { getSession, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 export interface TextareaProps {
   comment?: Comment;
@@ -13,9 +14,13 @@ export interface TextareaProps {
 export function Textarea({ comment }: TextareaProps) {
   const [isReadonly, setIsReadonly] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
   const ref = useRef<HTMLTextAreaElement>(null);
   const { data: session } = useSession();
+  const isMutating = isLoading || isPending;
   const isAuthorAndCurrentUser = comment?.author.email === session?.user?.email;
+  const editOrSaveText = isReadonly ? 'Editar' : 'Salvar';
 
   function handleEdit() {
     setIsReadonly((prev) => !prev);
@@ -43,6 +48,7 @@ export function Textarea({ comment }: TextareaProps) {
 
     setIsReadonly((prev) => !prev);
     setIsLoading(false);
+    startTransition(() => router.refresh());
   }
 
   if (!comment) return null;
@@ -60,11 +66,11 @@ export function Textarea({ comment }: TextareaProps) {
 
       {isAuthorAndCurrentUser && (
         <button
-          disabled={isLoading}
+          disabled={isMutating}
           onClick={() => (isReadonly ? handleEdit() : handleSave())}
           className="flex items-center absolute top-4 left-6 text-xxs transition-colors hover:text-violet-light200"
         >
-          {isReadonly ? 'Editar' : 'Salvar'}
+          {isMutating ? '...' : editOrSaveText}
         </button>
       )}
 
