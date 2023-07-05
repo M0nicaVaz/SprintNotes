@@ -17,13 +17,17 @@ export async function POST(req: Request) {
     const res = await prisma.comment.create({
       data: {
         description,
-        Post: { connect: { id: Number(postId) } },
-        author: { connect: { id: currentUserId } },
+        Post: {
+          connect: { id: Number(postId) },
+        },
+        author: {
+          connect: { id: currentUserId },
+        },
       },
     });
 
     return NextResponse.json(res);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }

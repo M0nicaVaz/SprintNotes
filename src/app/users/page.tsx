@@ -5,7 +5,8 @@ import { api } from '@/lib/api';
 export const dynamic = 'force-dynamic';
 
 export default async function Users() {
-  const users: User[] = await fetch(`${api}/users`).then((res) => res.json());
+  const fetchUsers = await fetch(`${api}/users`);
+  const users: User[] = await fetchUsers.json();
 
   return (
     <main className="flex gap-8 flex-col max-w-[1580px] mx-auto py-10 px-6 lg:px-16">

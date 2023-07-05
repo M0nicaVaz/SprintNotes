@@ -14,7 +14,7 @@ export function CommentForm() {
   const ref = useRef<HTMLTextAreaElement>(null);
   const { id } = useParams();
 
-  const createPost = async (e: React.FormEvent<HTMLFormElement>) => {
+  async function createPost(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsLoading(true);
 
@@ -34,13 +34,13 @@ export function CommentForm() {
         },
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
 
     if (ref.current) ref.current.value = '';
     setIsLoading(false);
     startTransition(() => router.refresh());
-  };
+  }
 
   return (
     <AuthCheck>

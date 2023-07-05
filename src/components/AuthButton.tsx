@@ -1,8 +1,7 @@
 'use client';
-import { Icon, Spinner } from 'design-system-medclub';
+import { Icon } from 'design-system-medclub';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import Image from 'next/image';
-import Link from 'next/link';
 
 export function SignOutButton() {
   return (

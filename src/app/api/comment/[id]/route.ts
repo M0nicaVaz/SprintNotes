@@ -13,7 +13,7 @@ export async function DELETE(
     });
     return NextResponse.json({ id });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -37,6 +37,6 @@ export async function PUT(
 
     return NextResponse.json({ id });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }

@@ -18,6 +18,7 @@ export function Textarea({ comment }: TextareaProps) {
   const router = useRouter();
   const ref = useRef<HTMLTextAreaElement>(null);
   const { data: session } = useSession();
+
   const isMutating = isLoading || isPending;
   const isAuthorAndCurrentUser = comment?.author.email === session?.user?.email;
   const editOrSaveText = isReadonly ? 'Editar' : 'Salvar';
@@ -43,7 +44,7 @@ export function Textarea({ comment }: TextareaProps) {
         },
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
 
     setIsReadonly((prev) => !prev);

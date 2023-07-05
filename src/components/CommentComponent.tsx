@@ -6,7 +6,7 @@ import { Textarea } from './Textarea';
 
 export function CommentComponent(comment: Comment) {
   return (
-    <div key={comment.id} className="flex relative flex-col gap-1">
+    <article key={comment.id} className="flex relative flex-col gap-1">
       <Textarea comment={comment} />
 
       <div className="flex self-end items-center">
@@ -27,6 +27,6 @@ export function CommentComponent(comment: Comment) {
           <RemoveComment {...comment} />
         </AuthCheck>
       </div>
-    </div>
+    </article>
   );
 }

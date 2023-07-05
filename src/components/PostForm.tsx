@@ -13,7 +13,7 @@ export function PostForm() {
   const router = useRouter();
   const ref = useRef<HTMLTextAreaElement>(null);
 
-  const createPost = async (e: React.FormEvent<HTMLFormElement>) => {
+  async function createPost(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsLoading(true);
 
@@ -35,13 +35,13 @@ export function PostForm() {
         },
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
 
     if (ref.current) ref.current.value = '';
     setIsLoading(false);
     startTransition(() => router.refresh());
-  };
+  }
 
   return (
     <AuthCheck>

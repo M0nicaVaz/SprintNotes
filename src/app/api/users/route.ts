@@ -6,13 +6,16 @@ export async function GET(request: Request) {
     const users = await prisma.user.findMany({
       include: {
         _count: {
-          select: { posts: true, comments: true },
+          select: {
+            posts: true,
+            comments: true,
+          },
         },
       },
     });
 
     return NextResponse.json(users);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }

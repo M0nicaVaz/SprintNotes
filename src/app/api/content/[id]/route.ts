@@ -29,7 +29,7 @@ export async function GET(
 
     return NextResponse.json(post);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -45,6 +45,6 @@ export async function DELETE(
     });
     return NextResponse.json({ id });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }

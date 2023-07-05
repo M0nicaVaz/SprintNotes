@@ -18,7 +18,7 @@ export async function GET() {
 
     return NextResponse.json(posts);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -44,12 +44,14 @@ export async function POST(req: Request) {
             };
           }),
         },
-        author: { connect: { id: currentUserId } },
+        author: {
+          connect: { id: currentUserId },
+        },
       },
     });
 
     return NextResponse.json(res);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
